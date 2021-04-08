@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<alumnos>
+	<alumno pendientes="3">
+		<dni> 44555666 </dni>
+		<nombre>SONIA SANCHEZ</nombre>
+	</alumno>
+	<alumno pendientes="0">
+		<dni>  28111222 </dni>
+		<nombre> LOLA LOPEZ </nombre>
+	</alumno>
+	<alumno pendientes="4">
+		<dni> 22333444 </dni>
+		<nombre>ANDRES GONZALEZ</nombre>
+	</alumno>
+	<alumno pendientes="1">
+		<dni> 99888777 </dni>
+		<nombre>LAURA GOMEZ</nombre>
+	</alumno>
+</alumnos>
