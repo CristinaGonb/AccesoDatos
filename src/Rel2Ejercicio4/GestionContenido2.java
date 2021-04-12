@@ -16,14 +16,14 @@ import org.xml.sax.helpers.DefaultHandler;
  * Crear un fichero alumnosRepetidores.txt que guarde los alumnos repetidores(2 o mas para repetir)
  * Crear un directorio con el nombre de los alumnos que no repiten
  */
-public class GestionContenido extends DefaultHandler {
+public class GestionContenido2 extends DefaultHandler {
 	private static final String ALUMNOS_REPETIDORES = "alumnosRepetidores.txt";
 	private static Scanner teclado = new Scanner(System.in);
 	private String etiquetaActual;
 	private int asignaturasPendientes;
 	private boolean repetidor = false;
 	private BufferedWriter filtroEscritura;
-	private String nombre, dni;
+	private StringBuilder nombre= new StringBuilder(""), dni=new StringBuilder();
 
 	@Override
 	public void startDocument() throws SAXException {
@@ -68,12 +68,15 @@ public class GestionContenido extends DefaultHandler {
 					throw new SAXException(e.getMessage());
 				}
 			} else {
-				File directorioAlumnos = new File(nombre);
+				File directorioAlumnos = new File(nombre.toString());
 				directorioAlumnos.mkdirs();
 			}
 		}
+		//Dejo vacio el SB, -1 porque length siempre cuenta 1+
+		dni.delete(0,dni.length()-1);
+		nombre.delete(0,nombre.length()-1);
 	}
-	
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String contenido = new String(ch, start, length);
@@ -85,11 +88,11 @@ public class GestionContenido extends DefaultHandler {
 
 		// Obtengo datos
 		if (etiquetaActual.equals("dni")) {
-			dni = contenido;
+			dni.append(contenido);
 		}
 
 		if (etiquetaActual.equals("nombre")) {
-			nombre = contenido;
+			nombre.append(contenido);
 		}
 	}
 }

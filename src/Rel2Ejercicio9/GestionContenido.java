@@ -1,4 +1,4 @@
-package Rel2Ejercicio4;
+package Rel2Ejercicio9;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,23 +12,20 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/*
- * Crear un fichero alumnosRepetidores.txt que guarde los alumnos repetidores(2 o mas para repetir)
- * Crear un directorio con el nombre de los alumnos que no repiten
- */
 public class GestionContenido extends DefaultHandler {
-	private static final String ALUMNOS_REPETIDORES = "alumnosRepetidores.txt";
+	private static final String ARCHIVO_UNIVERSIDAD = "universidad.txt";
 	private static Scanner teclado = new Scanner(System.in);
 	private String etiquetaActual;
-	private int asignaturasPendientes;
-	private boolean repetidor = false;
 	private BufferedWriter filtroEscritura;
-	private String nombre, dni;
+	private String nombreDpto;
+	private boolean esDpto = false, esEmpleado = false;
+	private int contador;
+	private double media = 0, salarioEmp;
 
 	@Override
 	public void startDocument() throws SAXException {
 		try {
-			filtroEscritura = new BufferedWriter(new FileWriter(ALUMNOS_REPETIDORES, true));
+			filtroEscritura = new BufferedWriter(new FileWriter(ARCHIVO_UNIVERSIDAD, true));
 		} catch (IOException e) {
 			throw new SAXException(e.getMessage());
 		}
@@ -49,31 +46,25 @@ public class GestionContenido extends DefaultHandler {
 		// Almaceno la ultima cadena que llego para saber en que punto estoy
 		etiquetaActual = qName;
 
-		if (etiquetaActual.equals("alumno")) {
-			asignaturasPendientes = Integer.parseInt(attributes.getValue("pendientes"));
+		if (etiquetaActual.equals("departamento")) {
+			esDpto = true;
 		}
+		if (etiquetaActual.equals("empleado")) {
+			salarioEmp = Double.parseDouble(attributes.getValue("salario"));
+			esEmpleado = true;
+		}
+
 	}
 
-	//Ejecuto una vez por cada alumno
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		etiquetaActual = qName;
-		// Cuando este en el final de la etiqueta alumno, creo el documento
-		if (etiquetaActual.equals("alumno")) {
-			//Con lo que tengo guardado, preguntamos las asignaturs pendientes
-			if (asignaturasPendientes >= 2) {
-				try {
-					filtroEscritura.write(dni + " " + nombre + "\n");
-				} catch (IOException e) {
-					throw new SAXException(e.getMessage());
-				}
-			} else {
-				File directorioAlumnos = new File(nombre);
-				directorioAlumnos.mkdirs();
-			}
-		}
+
+		media = media / contador;
+		System.out.println("Media de sueldo: " + media);
+
 	}
-	
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String contenido = new String(ch, start, length);
@@ -83,13 +74,16 @@ public class GestionContenido extends DefaultHandler {
 		if (contenido.length() == 0)
 			return;
 
-		// Obtengo datos
-		if (etiquetaActual.equals("dni")) {
-			dni = contenido;
+		if (etiquetaActual.equals("nombre") && esDpto == true) {
+			nombreDpto = contenido;
+			System.out.println(nombreDpto);
+			esDpto = false;
+		}
+		if (etiquetaActual.equals("empleado")) {
+			// salarioEmp = Integer.parseInt(contenido);
+			media = media + salarioEmp;
+			contador++;
 		}
 
-		if (etiquetaActual.equals("nombre")) {
-			nombre = contenido;
-		}
 	}
 }

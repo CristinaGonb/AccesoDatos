@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<personas>
+<persona tipo='M'>
+	<nombre>Rosa Perez</nombre>
+	<edad>29</edad>
+</persona>
+<persona tipo='H'>
+	<nombre>Pedro Perea</nombre>
+	<edad>53</edad>
+</persona>
+<persona tipo='H'>
+	<nombre>Juan Alvarez</nombre>
+	<edad>26</edad></persona>
+<persona tipo='M'>
+	<nombre>Maria Montes</nombre>
+	<edad>32</edad>
+</persona>
+<persona tipo='M'>
+	<nombre>Laura Perez</nombre>
+	<edad>19</edad>
+</persona>
+</personas>

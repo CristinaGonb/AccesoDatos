@@ -1,4 +1,4 @@
-package Rel2Ejercicio4;
+package Rel2Ejercicio1;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,30 +17,27 @@ import org.xml.sax.helpers.DefaultHandler;
  * Crear un directorio con el nombre de los alumnos que no repiten
  */
 public class GestionContenido extends DefaultHandler {
-	private static final String ALUMNOS_REPETIDORES = "alumnosRepetidores.txt";
 	private static Scanner teclado = new Scanner(System.in);
 	private String etiquetaActual;
-	private int asignaturasPendientes;
-	private boolean repetidor = false;
-	private BufferedWriter filtroEscritura;
-	private String nombre, dni;
+	private int edadM,edadH,contadorMujer=0,contadorHombre=0,mediaHombre,mediaMujer;
+	private int edad,edadMayor = 0;
+	private String nombre,nombreMayor,tipo;
 
 	@Override
 	public void startDocument() throws SAXException {
-		try {
-			filtroEscritura = new BufferedWriter(new FileWriter(ALUMNOS_REPETIDORES, true));
-		} catch (IOException e) {
-			throw new SAXException(e.getMessage());
-		}
+
 	}
 
 	@Override
 	public void endDocument() throws SAXException {
-		try {
-			filtroEscritura.close();
-		} catch (IOException e) {
-			throw new SAXException(e.getMessage());
-		}
+		//System.out.println("El nombre de la personas de mayor edad es " + nombreMayor+ " con la edad de "+edadMayor);
+		
+		mediaMujer=edadM/contadorMujer;
+		mediaHombre=edadH/contadorHombre;
+		
+		System.out.println("Media edad Mujer: "+mediaMujer);
+		System.out.println("Media edad Hombre: "+mediaHombre);
+		
 	}
 
 	@Override
@@ -48,32 +45,22 @@ public class GestionContenido extends DefaultHandler {
 
 		// Almaceno la ultima cadena que llego para saber en que punto estoy
 		etiquetaActual = qName;
-
-		if (etiquetaActual.equals("alumno")) {
-			asignaturasPendientes = Integer.parseInt(attributes.getValue("pendientes"));
+		
+		//Recogo el tipo de atributo de persona en la variable tipo
+		if(etiquetaActual.equals("persona")) {
+			tipo=attributes.getValue("tipo");
 		}
+
 	}
 
-	//Ejecuto una vez por cada alumno
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		etiquetaActual = qName;
-		// Cuando este en el final de la etiqueta alumno, creo el documento
-		if (etiquetaActual.equals("alumno")) {
-			//Con lo que tengo guardado, preguntamos las asignaturs pendientes
-			if (asignaturasPendientes >= 2) {
-				try {
-					filtroEscritura.write(dni + " " + nombre + "\n");
-				} catch (IOException e) {
-					throw new SAXException(e.getMessage());
-				}
-			} else {
-				File directorioAlumnos = new File(nombre);
-				directorioAlumnos.mkdirs();
-			}
-		}
+		etiquetaActual = "";
+		
+		
+
 	}
-	
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String contenido = new String(ch, start, length);
@@ -83,13 +70,32 @@ public class GestionContenido extends DefaultHandler {
 		if (contenido.length() == 0)
 			return;
 
-		// Obtengo datos
-		if (etiquetaActual.equals("dni")) {
-			dni = contenido;
-		}
-
+		/*
+		 * --------------------EJERCICIO 1--------------------------------------
 		if (etiquetaActual.equals("nombre")) {
 			nombre = contenido;
+		}
+			
+		if (etiquetaActual.equals("edad")) {
+			edad = Integer.parseInt(contenido);
+			if (edad > edadMayor) {
+				edadMayor = edad;
+				nombreMayor=nombre;
+			}
+		}*/
+		
+		//-----------------------EJERCICIO 2------------------------------------
+		switch (etiquetaActual) {
+		case "edad":
+			if(tipo.equals("M")) {
+				edadM=Integer.parseInt(contenido)+edadM;
+				contadorMujer++;
+			}else {
+				edadH=Integer.parseInt(contenido)+edadH;
+				contadorHombre++;
+			}
+			break;
+
 		}
 	}
 }
