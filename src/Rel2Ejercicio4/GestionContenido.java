@@ -60,7 +60,7 @@ public class GestionContenido extends DefaultHandler {
 		etiquetaActual = qName;
 		// Cuando este en el final de la etiqueta alumno, creo el documento
 		if (etiquetaActual.equals("alumno")) {
-			//Con lo que tengo guardado, preguntamos las asignaturs pendientes
+			//Con lo que tengo guardado, preguntamos las asignaturas pendientes
 			if (asignaturasPendientes >= 2) {
 				try {
 					filtroEscritura.write(dni + " " + nombre + "\n");

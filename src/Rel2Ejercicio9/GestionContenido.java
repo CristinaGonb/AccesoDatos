@@ -18,7 +18,7 @@ public class GestionContenido extends DefaultHandler {
 	private String etiquetaActual;
 	private BufferedWriter filtroEscritura;
 	private String nombreDpto;
-	private boolean esDpto = false, esEmpleado = false;
+	private boolean esDpto = false;
 	private int contador;
 	private double media = 0, salarioEmp;
 
@@ -51,7 +51,8 @@ public class GestionContenido extends DefaultHandler {
 		}
 		if (etiquetaActual.equals("empleado")) {
 			salarioEmp = Double.parseDouble(attributes.getValue("salario"));
-			esEmpleado = true;
+			media = media + salarioEmp;
+			contador++;
 		}
 
 	}
@@ -60,9 +61,10 @@ public class GestionContenido extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		etiquetaActual = qName;
 
-		media = media / contador;
-		System.out.println("Media de sueldo: " + media);
-
+		if (etiquetaActual.equals("departamento")) {
+			media = media / contador;
+			System.out.println("Media de sueldo: " + media);
+		}
 	}
 
 	@Override
@@ -79,11 +81,5 @@ public class GestionContenido extends DefaultHandler {
 			System.out.println(nombreDpto);
 			esDpto = false;
 		}
-		if (etiquetaActual.equals("empleado")) {
-			// salarioEmp = Integer.parseInt(contenido);
-			media = media + salarioEmp;
-			contador++;
-		}
-
 	}
 }
