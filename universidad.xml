@@ -18,7 +18,7 @@
 		<nombre>Matemáticas</nombre>
 		<empleado salario="1900">
 			<puesto>Técnico</puesto>
-			<nombre>Juan Parra</nombre>
+			<nombre>Pepi Parra</nombre>
 		</empleado>
 		<empleado salario="2100">
 			<puesto>Profesor</puesto>
