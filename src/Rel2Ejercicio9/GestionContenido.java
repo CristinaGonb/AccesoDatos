@@ -1,14 +1,11 @@
 package Rel2Ejercicio9;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -57,8 +54,12 @@ public class GestionContenido extends DefaultHandler {
 			contador++;
 		}
 		if (etiquetaActual.equals("empleado")) {
-			esEmpleado = true;
-		}
+			media = media + salarioEmp;
+			contador++;
+
+			media = media + salarioEmp;
+			contador++;
+			}
 
 	}
 
@@ -76,8 +77,12 @@ public class GestionContenido extends DefaultHandler {
 		}
 
 		if (etiquetaActual.equals("departamento")) {
+
 			System.out.println("La persona que mas cobra es " + nombreEmpleado);
 			salario=0;
+
+			media = media / contador;
+			System.out.println("Media de sueldo: " + media);
 		}
 	}
 
@@ -95,6 +100,7 @@ public class GestionContenido extends DefaultHandler {
 			System.out.println(nombreDpto);
 			esDpto = false;
 		}
+
 
 		if (etiquetaActual.equals("nombre") && esEmpleado == true) {
 			if (salarioEmp > salario) {
