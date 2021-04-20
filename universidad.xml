@@ -29,7 +29,7 @@
 			<nombre>Pedro Paniagua</nombre>
 		</empleado>
 		<empleado salario="2500">
-			<puesto>Tutor</puesto>
+			<puesto>Profesor</puesto>
 			<nombre>Antonia González</nombre>
 		</empleado>
 	</departamento>

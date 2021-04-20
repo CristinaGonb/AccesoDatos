@@ -45,10 +45,10 @@ public class PrincipalEjercicio3 {
 	}
 
 	private static void modificarArbolDo(Document arbol) throws IOException {
-		Element elementoDepartamento, elementoEmpleado; // guarda en cada vuelta
+		Element elementoDepartamento, elementoEmpleado,elementoNuevoMedia; // guarda en cada vuelta
 		Node raizDocumento;
-		NodeList listaDepartamento, listaEmpleado;// for
-		int salarioTotal = 0, contador=0;
+		NodeList listaDepartamento, listaEmpleado,listaPuesto;// for
+		int salarioTotal = 0, contador=0,contadorProfesor=0;
 		double media;
 
 		// Todos los elementos departamento del arbol
@@ -68,13 +68,55 @@ public class PrincipalEjercicio3 {
 				// Almaceno en la variable el salario de cada empleado
 				salarioTotal = salarioTotal + Integer.parseInt(elementoEmpleado.getAttribute("salario"));
 				contador++;
+				
+				if(elementoEmpleado.getTextContent().equals("Profesor")){
+					contadorProfesor++;
+				}
 			}
 			//Calculo la media del salario de los empleado de cada dpto
 			media= salarioTotal/contador;
 			salarioTotal=0;
 			contador=0;
+			
 			//Añado atributo al dpto
-			elementoDepartamento.setAttribute("salarioMedio",String.valueOf(media));
+			//elementoDepartamento.setAttribute("salarioMedio",String.valueOf(media));
+			
+			//1 FORMA Crear como etiqueta el salarioMedio
+			
+			//Creo una etiqueta nueva de salarioMedio
+			elementoNuevoMedia=arbol.createElement("salarioMedio");
+			
+			//añado al arbol(hago el elementoNuevo hijo del elementoDpto)
+			elementoDepartamento.appendChild(elementoNuevoMedia);
+			
+			//añado valor
+			elementoNuevoMedia.setTextContent(String.valueOf(media));
+			
+			
+			/*
+			 * 2 FORMA
+			 * 
+			//Creo una etiqueta nueva de salarioMedio
+			elementoNuevoMedia=arbol.createElement("salarioMedio");
+			
+			//añado al arbol(hago el elementoNuevo hijo del elementoDpto)
+			elementoDepartamento.appendChild(elementoNuevoMedia);
+			
+			//creo el nodo de texto
+			Node textoSalario=arbol.createTextNode(String.valueOf(media));
+			
+			//añadimos hijo a elementoNuevoMedia
+			elementoNuevoMedia.appendChild(textoSalario);
+		*/
+			
+			//añadir atributo tamaño a dpto dependiendo del numero de profesores >2 Grande <=2 Pequeño
+			
+			if(contadorProfesor <=2) {
+				elementoDepartamento.setAttribute("tamaño","PEQUEÑO");
+			}else {
+				elementoDepartamento.setAttribute("tamaño","GRANDE");
+			}
+			
 		}
 	}
 
