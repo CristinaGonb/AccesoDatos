@@ -10,7 +10,7 @@
 			<puesto>Profesor</puesto>
 			<nombre>Alicia Martín</nombre>
 		</empleado>
-	<salarioMedio>2150.0</salarioMedio></departamento>
+	</departamento>
 
 	<departamento tamaño="GRANDE" telefono="990033" tipo="A">
 		<codigo>MAT1</codigo>
@@ -31,7 +31,7 @@
 			<puesto>Profesor</puesto>
 			<nombre>Antonia González</nombre>
 		</empleado>
-	<salarioMedio>2275.0</salarioMedio></departamento>
+	</departamento>
 
 	<departamento tamaño="PEQUEÑO" telefono="880833" tipo="B">
 		<codigo>MAT2</codigo>
@@ -44,6 +44,6 @@
 			<puesto>Asociado</puesto>
 			<nombre>Mario García</nombre>
 		</empleado>
-	<salarioMedio>2250.0</salarioMedio></departamento>
+	</departamento>
 
 </universidad>

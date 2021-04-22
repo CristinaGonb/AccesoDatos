@@ -61,16 +61,8 @@ public class PrincipalEjercicio3 {
 			elementoDepartamento = (Element) listaDepartamento.item(i);
 
 			// Guardo en una lista el empleado de cada dpto
-			listaEmpleado = elementoDepartamento.getElementsByTagName("empleado");
+			listaPuesto = elementoDepartamento.getElementsByTagName("puesto");
 
-			for (int j = 0; j < listaEmpleado.getLength(); j++) {
-				elementoEmpleado = (Element) listaEmpleado.item(j);
-				// Almaceno en la variable el salario de cada empleado
-				salarioTotal = salarioTotal + Integer.parseInt(elementoEmpleado.getAttribute("salario"));
-				contador++;
-
-				// Guardo en una lista los elementos que sean puesto y los recorro
-				listaPuesto = elementoEmpleado.getElementsByTagName("puesto");
 				for (int j2 = 0; j2 < listaPuesto.getLength(); j2++) {
 					elementoPuesto = (Element) listaPuesto.item(j2);
 
@@ -80,27 +72,6 @@ public class PrincipalEjercicio3 {
 					}
 				}
 				
-			}
-			// Calculo la media del salario de los empleado de cada dpto
-			media = salarioTotal / contador;
-			salarioTotal = 0;
-			contador = 0;
-			
-
-			// Añado atributo al dpto
-			// elementoDepartamento.setAttribute("salarioMedio",String.valueOf(media));
-
-			// 1 FORMA Crear como etiqueta el salarioMedio
-
-			// Creo una etiqueta nueva de salarioMedio
-			elementoNuevoMedia = arbol.createElement("salarioMedio");
-
-			// añado al arbol(hago el elementoNuevo hijo del elementoDpto)
-			elementoDepartamento.appendChild(elementoNuevoMedia);
-
-			// añado valor
-			elementoNuevoMedia.setTextContent(String.valueOf(media));
-
 			/*
 			 * 2 FORMA
 			 * 
